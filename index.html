@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Alisa Vedmidska</title>
+    <!-- Load Nunito Font from Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- Load Vue 3 and flipbook-vue from CDN -->
+    <script src="js/vue.global.js"></script>
+    <script src="js/flipbook.min.js"></script>
+    
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #f8f9fa;
+            color: #2b2d42;
+            line-height: 1.6;
+            padding: 0;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        /* Compact header with pastel mint and consistent margins */
+        .header {
+            background: #b8e0d2; /* Pastel mint */
+            padding: 8px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        .header h1 {
+            text-align: left;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-left: 8px; /* Same as top/bottom padding */
+        }
+        
+        /* Ultra-compact controls container with consistent margins */
+        .controls-container {
+            background: white;
+            padding: 6px 8px; /* Same left margin as header */
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .page-info {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #2b2d42;
+        }
+        
+        .controls {
+            display: flex;
+            gap: 6px;
+            flex-wrap: nowrap;
+            justify-content: center;
+            width: 100%;
+            max-width: 260px;
+        }
+        
+        .controls button {
+            padding: 8px 12px;
+            background-color: #6bc4a6; /* Mint green */
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .controls button:hover:not(:disabled) {
+            background-color: #5ab095; /* Darker mint on hover */
+            transform: translateY(-1px);
+        }
+        
+        .controls button:disabled {
+            background-color: #a8d5c5; /* Lighter mint for disabled */
+            cursor: not-allowed;
+            transform: none;
+            opacity: 0.7;
+        }
+        
+        .material-icons {
+            font-size: 1.3rem;
+        }
+        
+        /* Flipbook with top alignment - no centering */
+        .flipbook {
+            width: calc(100vw - 16px); /* Account for 8px margins on both sides */
+            height: calc(100vh - 140px);
+            max-width: 1400px;
+            border-radius: 4px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            margin: 0 auto; /* Horizontal centering only */
+            display: block;
+        }
+        
+        /* Flipbook viewport adjustments */
+        .flipbook .viewport {
+            width: 100%;
+            height: 100%;
+        }
+        
+        /* Mobile-first responsive adjustments */
+        @media (max-width: 768px) {
+            .header {
+                padding: 6px;
+            }
+            
+            .header h1 {
+                font-size: 1.3rem;
+                margin-left: 6px;
+            }
+            
+            .controls-container {
+                padding: 5px 6px;
+                gap: 4px;
+            }
+            
+            .page-info {
+                font-size: 0.85rem;
+            }
+            
+            .controls {
+                gap: 5px;
+                max-width: 240px;
+            }
+            
+            .controls button {
+                padding: 6px 10px;
+            }
+            
+            .material-icons {
+                font-size: 1.2rem;
+            }
+            
+            .flipbook {
+                width: calc(100vw - 12px);
+                height: calc(100vh - 130px);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .header {
+                padding: 5px;
+            }
+            
+            .header h1 {
+                font-size: 1.2rem;
+                margin-left: 5px;
+            }
+            
+            .controls-container {
+                padding: 4px 5px;
+                gap: 3px;
+            }
+            
+            .page-info {
+                font-size: 0.8rem;
+            }
+            
+            .controls {
+                gap: 4px;
+                max-width: 220px;
+            }
+            
+            .controls button {
+                padding: 5px 8px;
+                border-radius: 4px;
+            }
+            
+            .material-icons {
+                font-size: 1.1rem;
+            }
+            
+            .flipbook {
+                width: calc(100vw - 10px);
+                height: calc(100vh - 120px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- Compact header with pastel mint and consistent margins -->
+        <div class="header">
+            <h1>Alisa Vedmidska</h1>
+        </div>
+
+        <!-- Ultra-compact controls container with consistent margins -->
+        <div class="controls-container">
+            <div class="page-info">
+                Page {{ flipbook.page }} of {{ flipbook.numPages }}
+            </div>
+
+            <div class="controls">
+                <button @click="flipbook.flipLeft" :disabled="!flipbook.canFlipLeft" title="Previous Page">
+                    <span class="material-icons">chevron_left</span>
+                </button>
+                <button @click="flipbook.zoomOut" :disabled="!flipbook.canZoomOut" title="Zoom Out">
+                    <span class="material-icons">zoom_out</span>
+                </button>
+                <button @click="flipbook.zoomIn" :disabled="!flipbook.canZoomIn" title="Zoom In">
+                    <span class="material-icons">zoom_in</span>
+                </button>
+                <button @click="flipbook.flipRight" :disabled="!flipbook.canFlipRight" title="Next Page">
+                    <span class="material-icons">chevron_right</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Flipbook directly follows controls - no wrapper for centering -->
+        <flipbook 
+            class="flipbook" 
+            :pages="pages"
+            :centering="true"
+            v-slot="flipbook"
+            ref="flipbookRef"
+            :start-page="1"
+            :dragToFlip="true"
+            click-to-zoom="true"
+            :flip-duration="400"
+            :zoom-duration="300"
+            :zooms="[1, 2, 4]"
+            singlePage="false"
+            :nPolygons="10"
+            :gloss="0.4"
+        >
+        </flipbook>
+    </div>
+
+    <script>
+        const { createApp, ref, onMounted, onUnmounted } = Vue;
+
+        const app = createApp({
+            setup() {
+                // Your array of page images
+                const pages = ref([
+                    null, // Cover
+                    'images/page1.jpg', 
+                    'images/page2.jpg',
+                    'images/page3.jpg',
+                    'images/page4.jpg',
+                    'images/page5.jpg',
+                    'images/page6.jpg',
+                    'images/page7.jpg',
+                    'images/page8.jpg',
+                    'images/page9.jpg',
+                    'images/page10.jpg',
+                    'images/page11.jpg',
+                    'images/page12.jpg',
+                    'images/page13.jpg',
+                    'images/page14.jpg',
+                    'images/page15.jpg',
+                    'images/page16.jpg',
+                    'images/page17.jpg',
+                    'images/page18.jpg',
+                    'images/page19.jpg',
+                    'images/page20.jpg',
+                    'images/page21.jpg',
+                    'images/page22.jpg' // Back cover
+                ]);
+
+                const flipbookRef = ref(null);
+                const flipbook = ref({
+                    canFlipLeft: false,
+                    canFlipRight: false,
+                    canZoomIn: false,
+                    canZoomOut: false,
+                    page: 1,
+                    numPages: pages.value.length,
+                    flipLeft: () => {},
+                    flipRight: () => {},
+                    zoomIn: () => {},
+                    zoomOut: () => {}
+                });
+
+                // Keyboard navigation handler
+                const handleKeyDown = (event) => {
+                    // Only handle left/right arrow keys
+                    if (event.key === 'ArrowLeft') {
+                        if (flipbook.value.canFlipLeft) {
+                            flipbook.value.flipLeft();
+                        }
+                    } else if (event.key === 'ArrowRight') {
+                        if (flipbook.value.canFlipRight) {
+                            flipbook.value.flipRight();
+                        }
+                    }
+                };
+
+                onMounted(() => {
+                    // Bind the flipbook methods and state to the template
+                    if (flipbookRef.value) {
+                        flipbook.value = flipbookRef.value;
+                    }
+                    
+                    // Add keyboard event listener
+                    window.addEventListener('keydown', handleKeyDown);
+                });
+
+                onUnmounted(() => {
+                    // Clean up keyboard event listener
+                    window.removeEventListener('keydown', handleKeyDown);
+                });
+
+                return {
+                    pages,
+                    flipbookRef,
+                    flipbook
+                };
+            }
+        });
+
+        // Register the flipbook component globally
+        app.component('flipbook', Flipbook);
+        app.mount('#app');
+    </script>
+</body>
+</html>
