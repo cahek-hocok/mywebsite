@@ -33,49 +33,34 @@
             overflow: hidden;
         }
         
-        /* Compact header with pastel mint and consistent margins */
-        .header {
-            background: #b8e0d2; /* Pastel mint */
-            padding: 8px;
-            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-        }
-        
-        .header h1 {
-            text-align: left;
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: #ffffff;
-            margin-left: 8px; /* Same as top/bottom padding */
-        }
-        
         /* Ultra-compact controls container with consistent margins */
         .controls-container {
             background: white;
-            padding: 6px 8px; /* Same left margin as header */
+            padding: 8px;
             box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 5px;
+            gap: 8px;
         }
         
         .page-info {
-            font-size: 0.9rem;
+            font-size: 1rem;
             font-weight: 700;
             color: #2b2d42;
         }
         
         .controls {
             display: flex;
-            gap: 6px;
+            gap: 8px;
             flex-wrap: nowrap;
             justify-content: center;
             width: 100%;
-            max-width: 260px;
+            max-width: 280px;
         }
         
         .controls button {
-            padding: 8px 12px;
+            padding: 10px 14px;
             background-color: #6bc4a6; /* Mint green */
             color: white;
             border: none;
@@ -104,17 +89,17 @@
         }
         
         .material-icons {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
         }
         
-        /* Flipbook with top alignment - no centering */
+        /* Flipbook with more space now that header is removed */
         .flipbook {
-            width: calc(100vw - 16px); /* Account for 8px margins on both sides */
-            height: calc(100vh - 140px);
+            width: calc(100vw - 16px);
+            height: calc(100vh - 120px); /* Adjusted for header removal */
             max-width: 1400px;
             border-radius: 4px;
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-            margin: 0 auto; /* Horizontal centering only */
+            margin: 0 auto;
             display: block;
         }
         
@@ -126,18 +111,38 @@
         
         /* Mobile-first responsive adjustments */
         @media (max-width: 768px) {
-            .header {
-                padding: 6px;
-            }
-            
-            .header h1 {
-                font-size: 1.3rem;
-                margin-left: 6px;
-            }
-            
             .controls-container {
-                padding: 5px 6px;
-                gap: 4px;
+                padding: 6px;
+                gap: 6px;
+            }
+            
+            .page-info {
+                font-size: 0.9rem;
+            }
+            
+            .controls {
+                gap: 6px;
+                max-width: 260px;
+            }
+            
+            .controls button {
+                padding: 8px 12px;
+            }
+            
+            .material-icons {
+                font-size: 1.3rem;
+            }
+            
+            .flipbook {
+                width: calc(100vw - 12px);
+                height: calc(100vh - 110px);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .controls-container {
+                padding: 5px;
+                gap: 5px;
             }
             
             .page-info {
@@ -150,66 +155,23 @@
             }
             
             .controls button {
-                padding: 6px 10px;
-            }
-            
-            .material-icons {
-                font-size: 1.2rem;
-            }
-            
-            .flipbook {
-                width: calc(100vw - 12px);
-                height: calc(100vh - 130px);
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .header {
-                padding: 5px;
-            }
-            
-            .header h1 {
-                font-size: 1.2rem;
-                margin-left: 5px;
-            }
-            
-            .controls-container {
-                padding: 4px 5px;
-                gap: 3px;
-            }
-            
-            .page-info {
-                font-size: 0.8rem;
-            }
-            
-            .controls {
-                gap: 4px;
-                max-width: 220px;
-            }
-            
-            .controls button {
-                padding: 5px 8px;
+                padding: 7px 10px;
                 border-radius: 4px;
             }
             
             .material-icons {
-                font-size: 1.1rem;
+                font-size: 1.2rem;
             }
             
             .flipbook {
                 width: calc(100vw - 10px);
-                height: calc(100vh - 120px);
+                height: calc(100vh - 100px);
             }
         }
     </style>
 </head>
 <body>
     <div id="app">
-        <!-- Compact header with pastel mint and consistent margins -->
-        <div class="header">
-            <h1>Alisa Vedmidska</h1>
-        </div>
-
         <!-- Ultra-compact controls container with consistent margins -->
         <div class="controls-container">
             <div class="page-info">
